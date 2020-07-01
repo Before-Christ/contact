@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="tran_black">#00000000</color>
+
+    <color name="color_line">#dddddd</color>
+
+    <color name="defaultText">#333333</color>
+    <color name="hint_color">#666666</color>
+
+    <color name="background">#f1f1f1</color>
+
+    <color name="color_d7d8da">#d7d8da</color>
+
+    <color name="font_black">#333333</color>
+    // 字体 黑色
+    <color name="font_gray">#666666</color>
+    // 字体 灰色
+    <color name="font_light">#777777</color>
+    // 字体
+    <color name="font_lightgray">#999999</color>
+    // 字体 浅灰色
+
+    <color name="color_0">#5b52b5</color>
+    <color name="color_1">#6e5eda</color>
+    <color name="color_2">#7361ed</color>
+    <color name="color_3">#ff6b6b</color>
+    <color name="color_4">#ef3f3f</color>
+    <color name="color_5">#5389f7</color>
+    <color name="color_6">#ffab58</color>
+    <color name="color_7">#ff9758</color>
+
+    <color name="gray">#999999</color>
+    <color name="blue">#288dde</color>
+    <color name="red">#FF3B00</color>
+
+    <color name="gray_light">#cfcfd2</color>
+    <color name="blue_show">#548AEA</color>
+    <color name="planbook_default">#ff6969</color>
+    <color name="dialog_tran_color">#99000000</color>
+
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/searchTop"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@color/color_0"
+        android:layout_below="@id/toolbar">
+        
+        <EditText
+            android:id="@+id/search_friend"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/radius_bg"
+            android:drawableLeft="@mipmap/iv_search_normal"
+            android:drawablePadding="4dp"
+            android:padding="4dp"
+            android:hint="请输入关键字"
+            android:textSize="14dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <com.example.contact.view.ContactRecyclerView
+        android:id="@+id/contact_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchTop"/>
+
+
+
+
+</RelativeLayout>
+

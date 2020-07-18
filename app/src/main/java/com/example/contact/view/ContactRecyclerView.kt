@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contact.pojo.ContactPerson
 import com.example.contact.unit.CharacterParser
 import com.example.contact.unit.PinyinComparator
-import com.example.contact.unit.SortModel
-import kotlinx.android.synthetic.main.letter_item.view.*
 import kotlinx.android.synthetic.main.recycle_view.view.*
 import java.util.*
 
@@ -33,7 +31,7 @@ class ContactRecyclerView @JvmOverloads constructor(context: Context, attrs: Att
     var letter_top: LinearLayout? = null
     var letter_title: TextView? = null
     private var contactPersonList: MutableList<ContactPerson> = mutableListOf()
-    private val mParser: CharacterParser = CharacterParser.getInstance()
+    private val mParser: CharacterParser = CharacterParser.instance
 
 
     init {

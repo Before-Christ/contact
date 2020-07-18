@@ -1,9 +1,11 @@
 package com.example.contact
 
 import android.content.ContentValues
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.contact.dao.ContactDbHelper
 import com.example.contact.pojo.ContactPerson
 import com.example.contact.unit.CharacterParser
@@ -13,7 +15,7 @@ import kotlin.random.Random
 class PersonDetailActivity : AppCompatActivity() {
 
     private var personId = -1
-    private val mParser: CharacterParser = CharacterParser.getInstance()
+    private val mParser: CharacterParser = CharacterParser.instance
     private val imageList = intArrayOf(
         R.drawable.apple,
         R.drawable.banana,
@@ -39,7 +41,7 @@ class PersonDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person)
         personId = intent.getIntExtra("personId", -1)
-        if (personId != -1){
+        if (personId != -1) {
             selectPerson()
             person?.headerImage?.let { headerImageView.setImageResource(it) }
             personName.setText(person?.name)
@@ -49,19 +51,29 @@ class PersonDetailActivity : AppCompatActivity() {
             personAddress.setText(person?.address)
             addAndUpdatePerson()
             removePerson()
-        }else{
+        } else {
             headerImageView.setImageResource(headerImage)
+        }
+        phoneCall.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${personNumber.text}")
+            startActivity(intent)
+        }
+        sendMessage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("tel:${personNumber.text}")
+            startActivity(intent)
         }
         addAndUpdatePerson()
         removePerson()
     }
 
-    private fun selectPerson(){
+    private fun selectPerson() {
         val dbHelper = ContactDbHelper(this, "Contact.db", 1)
         val db = dbHelper.writableDatabase
         val cursor =
             db.rawQuery("select * from contact where id = ?", arrayOf(personId.toString()))
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             val id = cursor.getInt(cursor.getColumnIndex("id"))
             val name = cursor.getString(cursor.getColumnIndex("name"))
             val phoneNumber = cursor.getString(cursor.getColumnIndex("phoneNumber"))
@@ -70,17 +82,18 @@ class PersonDetailActivity : AppCompatActivity() {
             val letter = cursor.getString(cursor.getColumnIndex("letter"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val remark = cursor.getString(cursor.getColumnIndex("remark"))
-            person = ContactPerson(id, name, phoneNumber, headerImage, email, address, remark, letter)
+            person =
+                ContactPerson(id, name, phoneNumber, headerImage, email, address, remark, letter)
         }
         cursor.close()
 
     }
 
-    private fun addAndUpdatePerson(){
+    private fun addAndUpdatePerson() {
         val dbHelper = ContactDbHelper(this, "Contact.db", 1)
         val db = dbHelper.writableDatabase
         fab.setOnClickListener {
-            if (personId == -1 && personName.text.toString() != ""){
+            if (personId == -1 && personName.text.toString() != "") {
                 val name = personName.text.toString()
                 val phoneNumber = personNumber.text.toString()
                 val email = personEmail.text.toString()
@@ -100,7 +113,7 @@ class PersonDetailActivity : AppCompatActivity() {
                 }
                 db.insert("contact", null, values)
                 Toast.makeText(this, "恭喜添加联系人成功！", Toast.LENGTH_SHORT).show()
-            }else if (personId != -1 && personName.text.toString() != "") {
+            } else if (personId != -1 && personName.text.toString() != "") {
                 val name = personName.text.toString()
                 val phoneNumber = personNumber.text.toString()
                 val email = personEmail.text.toString()
@@ -108,23 +121,25 @@ class PersonDetailActivity : AppCompatActivity() {
                 val address = personAddress.text.toString()
                 val letter = mParser.getSelling(name)
 
-                db.execSQL("update contact set name = ? + phoneNumber = ? + email = ? + remark = ? + address = ? + letter = ?",
-                    arrayOf(name, phoneNumber, email, remark, address, letter))
+                db.execSQL(
+                    "update contact set name = ? + phoneNumber = ? + email = ? + remark = ? + address = ? + letter = ?",
+                    arrayOf(name, phoneNumber, email, remark, address, letter)
+                )
                 Toast.makeText(this, "恭喜修改联系人成功！", Toast.LENGTH_SHORT).show()
             }
-            if (personName.text.toString() != ""){
+            if (personName.text.toString() != "") {
                 Toast.makeText(this, "请输入联系人信息", Toast.LENGTH_SHORT).show()
             }
-
-
         }
 
+
     }
-    private fun  removePerson(){
-        delete.setOnClickListener{
-            if (personId == -1){
+
+    private fun removePerson() {
+        delete.setOnClickListener {
+            if (personId == -1) {
                 Toast.makeText(this, "联系人不存在，无法删除!", Toast.LENGTH_SHORT).show()
-            }else {
+            } else {
                 val dbHelper = ContactDbHelper(this, "Contact.db", 1)
                 val db = dbHelper.writableDatabase
                 db.execSQL("delete from contact where id = ?", arrayOf(personId.toString()))

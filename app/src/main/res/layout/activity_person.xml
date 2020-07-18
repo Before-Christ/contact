@@ -158,13 +158,27 @@
 
     </androidx.core.widget.NestedScrollView>
 
+
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/nav_call"
+        android:src="@drawable/ic_comment"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/phoneCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="80dp"
+        android:src="@drawable/nav_call"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
